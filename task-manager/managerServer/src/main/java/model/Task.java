@@ -1,11 +1,15 @@
 package model;
 
+import com.google.gson.annotations.Expose;
+
 public class Task {
-    private int id;
-    private String title;
-    private String description;
-    private String dueDate;
-    private String priority;
+    @Expose private int id;
+    @Expose private String title;
+    @Expose private String description;
+    @Expose private String dueDate;
+    @Expose private String priority;
+
+    @Expose(serialize = false, deserialize = true)
     private TaskStage stage;
 
     public Task(){

@@ -3,11 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+
 public class TaskStage {
-    private int id;
-    private String name;
-    private String description;
-    private List<Task> tasks;
+    @Expose private int id;
+    @Expose private String name;
+    @Expose private String description;
+    @Expose private List<Task> tasks;
 
     public TaskStage(){
 

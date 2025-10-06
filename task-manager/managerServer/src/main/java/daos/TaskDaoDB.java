@@ -48,7 +48,7 @@ public class TaskDaoDB implements Dao<Task, Integer>{
     }
 
     @Override
-    public Task finById(Integer id) {
+    public Task findById(Integer id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'finById'");
     }

@@ -16,7 +16,7 @@ public class TaskMemDao implements Dao<Task, Integer>{
     }
 
     @Override
-    public Task finById(Integer id) {
+    public Task findById(Integer id) {
         return tasks.stream()
             .filter(t -> t.getId() == id)
             .findFirst().orElse(null);
@@ -24,18 +24,20 @@ public class TaskMemDao implements Dao<Task, Integer>{
 
     @Override
     public Task update(Task newEntity) {
-        Task exist = finById(newEntity.getId());
+        Task exist = findById(newEntity.getId());
         if(exist != null){
             exist.setDescription(newEntity.getDescription());
             exist.setTitle(newEntity.getTitle());
             exist.setStage(newEntity.getStage());
+            exist.setDueDate(newEntity.getDueDate());
+            exist.setPriority(newEntity.getPriority());
         }
         return exist;
     }
 
     @Override
     public void delete(Task entity) {
-        Task ent = finById(entity.getId());
+        Task ent = findById(entity.getId());
         if(ent != null){
             tasks.remove(ent);
         }

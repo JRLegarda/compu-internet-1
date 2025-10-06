@@ -8,7 +8,10 @@ const onAddTask = (e, container, title, description, dueDate) => {
         "title": title,
         "description": description,
         "dueDate": dueDate,
-        "priority": "High"
+        "priority": "High",
+        "stage": {
+            "id": 1
+        }
     }
     fetch("http://localhost:3000/tasks", {
         method: "POST",
@@ -65,9 +68,9 @@ const BoardTask = (tasks) => {
         const listElement = ListTask(task);
         lists.appendChild(listElement);
     });
-    
-    button.onclick = (e) => onAddTask(e, lists.firstElementChild, input.value, description.value, dueDate.value)
-    
+
+    button.onclick = (e) => onAddTask(e, lists.firstElementChild.getElementsByClassName("task-items")[0], input.value, description.value, dueDate.value)
+
     comp.appendChild(input)
     comp.appendChild(description)
     comp.appendChild(dueDate)
