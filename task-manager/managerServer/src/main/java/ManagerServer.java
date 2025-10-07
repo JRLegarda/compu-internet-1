@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import dtos.Request;
@@ -27,7 +28,7 @@ public class ManagerServer {
     }
 
     public ManagerServer() throws Exception {
-        gson = new Gson();
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         services = new TaskServices();
         ServerSocket socket = new ServerSocket(5000);
         running = true;

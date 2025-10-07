@@ -17,6 +17,7 @@ public class ManagerServerTest {
     private Socket client;
     private Gson gson = new Gson();
 
+
     @BeforeClass
     public static void initConfig() {
         System.out.println("Starting test...");
