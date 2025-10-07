@@ -7,10 +7,14 @@ public class Request {
     @Expose private String command;
     @Expose private JsonObject data;
 
+    public Request(String command, JsonObject data) {
+        this.command = command;
+        this.data = data;
+    }
+
     public String getCommand() {
         return command;
     }
-
     public JsonObject getData() {
         return data;
     }

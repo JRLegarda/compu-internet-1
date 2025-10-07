@@ -15,7 +15,9 @@ subprojects{
         // https://mvnrepository.com/artifact/org.postgresql/postgresql
         implementation 'org.postgresql:postgresql:42.7.8'
         // https://mvnrepository.com/artifact/com.google.code.gson/gson
-        implementation 'com.google.code.gson:gson:2.13.2'
+        implementation 'com.google.code.gson:gson:2.10.1'
+        testImplementation 'junit:junit:4.13.2'
+        
     }
 
     jar{

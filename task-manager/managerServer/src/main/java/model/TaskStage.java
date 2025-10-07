@@ -11,6 +11,12 @@ public class TaskStage {
     @Expose private String description;
     @Expose private List<Task> tasks;
 
+    public TaskStage(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public TaskStage(){
 
     }

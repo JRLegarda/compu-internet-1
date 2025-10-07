@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import dtos.Request;
@@ -19,31 +18,27 @@ import services.TaskServices;
 
 public class ManagerServer {
 
-    private static Gson gson;
-    private static TaskServices services;
+    private Gson gson;
+    private TaskServices services;
+    private boolean running;
 
-    public static void main(String[] args)throws Exception {
-
-        ServerSocket socket = new ServerSocket(5000);
-        Runtime.getRuntime().addShutdownHook(new Thread(()->{
-            try {
-                socket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }));
-        gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        services = new TaskServices();
-        while (true) {
-            Socket sc = socket.accept();
-            resoveClient(sc);
-        }
-        
+    public static void main(String[] args) throws Exception {
+        new ManagerServer();
     }
 
-    public static void resoveClient(Socket sc) throws IOException{
+    public ManagerServer() throws Exception {
+        gson = new Gson();
+        services = new TaskServices();
+        ServerSocket socket = new ServerSocket(5000);
+        running = true;
+        while (running) {
+            Socket sc = socket.accept();
+            resolveClient(sc);
+        }
+        socket.close();
+    }
+
+    public void resolveClient(Socket sc) throws IOException {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(sc.getOutputStream()));
@@ -91,5 +86,5 @@ public class ManagerServer {
             sc.close();
         }
     }
-    
+
 }
