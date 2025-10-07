@@ -50,7 +50,7 @@ public class ManagerServerTest {
     @Test
     public void testGetTasks()throws Exception{
         client = new Socket("localhost", 5000);
-        String rq = gson.toJson(new Request("GET_TASKS", null));
+        String rq = gson.toJson(new Request("GET_TASKS", new JsonObject()));
         client.getOutputStream().write((rq + "\n").getBytes());
         client.getOutputStream().flush();
         byte[] buffer = new byte[4096];
@@ -59,8 +59,8 @@ public class ManagerServerTest {
         TaskStage[] stages = gson.fromJson(resp, TaskStage[].class);
         assert stages.length == 3;
         assert stages[0].getName().equals("TO DO");
-        assert stages[1].getName().equals("Doing");
-        assert stages[2].getName().equals("Done");
+        assert stages[1].getName().equals("IN PROGRESS");
+        assert stages[2].getName().equals("DONE");
 
     }
 

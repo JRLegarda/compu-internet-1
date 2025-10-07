@@ -12,17 +12,17 @@ public class StageDao implements Dao<TaskStage, Integer>{
 
     public StageDao(){
         TaskStage todo = new TaskStage();
-        todo.setName("To Do");
+        todo.setName("TO DO");
         todo.setDescription("Tasks to be done");
         save(todo);
 
         TaskStage inProgress = new TaskStage();
-        inProgress.setName("In Progress");
+        inProgress.setName("IN PROGRESS");
         inProgress.setDescription("Tasks in progress");
         save(inProgress);
 
         TaskStage done = new TaskStage();
-        done.setName("Done");
+        done.setName("DONE");
         done.setDescription("Completed tasks");
         save(done);
     }
