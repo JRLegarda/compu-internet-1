@@ -53,4 +53,26 @@ const getBoard = () => {
   return prom;
 };
 
-module.exports = { selectCell, getBoard };
+const initGame = (n, m, mines) => {
+  return new Promise((resp, reject) => {
+    const socket = new net.Socket();
+    socket.connect(12345, 'localhost', () => {
+      const request = {
+        action: 'INIT_GAME',
+        data: { n: n.toString(), m: m.toString(), minas: mines.toString() },
+      };
+      socket.write(JSON.stringify(request));
+      socket.write('\n');
+      socket.once('data', (data) => {
+        const message = data.toString().trim();
+        try {
+          resp(JSON.parse(message));
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+  });
+};
+
+module.exports = { selectCell, getBoard, initGame };

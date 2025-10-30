@@ -49,11 +49,26 @@ const showCell = async (cellId) => {
 function Game() {
   const container = document.createElement('div');
   container.id = 'home-page';
-  // getBoardAxios();
+
   const title = document.createElement('h1');
   title.innerText = 'Land Mines';
   title.classList = 'title';
   container.appendChild(title);
+
+  const resetButton = document.createElement('button');
+  resetButton.innerText = 'Iniciar de nuevo';
+  resetButton.onclick = async () => {
+    const response = await fetch('http://localhost:5000/board/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ n: 8, m: 8, mines: 10 }),
+    });
+    const data = await response.json();
+    container.removeChild(container.querySelector('.board'));
+    const board = Board(data.data.board, showCell);
+    container.appendChild(board);
+  };
+  container.appendChild(resetButton);
 
   const cells = getBoard();
   cells.then((data) => {
@@ -63,5 +78,6 @@ function Game() {
 
   return container;
 }
+
 
 export default Game;
