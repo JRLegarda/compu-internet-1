@@ -81,7 +81,44 @@
     Slice.defineOperations(Game.GameServices, Game.GameServicesPrx, iceC_Game_GameServices_ids, 0,
     {
         "selectCell": [, , , , [1], [[3], [3]], , , , ],
-        "getBoard": [, , , , ["Game.PixelMatrixHelper"], , , , , ]
+        "getBoard": [, , , , ["Game.PixelMatrixHelper"], , , , , ],
+        "resetGame": [, , , , , , , , , ]
+    });
+
+    const iceC_Game_Observer_ids = [
+        "::Game::Observer",
+        "::Ice::Object"
+    ];
+
+    Game.Observer = class extends Ice.Object
+    {
+    };
+
+    Game.ObserverPrx = class extends Ice.ObjectPrx
+    {
+    };
+
+    Slice.defineOperations(Game.Observer, Game.ObserverPrx, iceC_Game_Observer_ids, 0,
+    {
+        "notifyMessage": [, , , , , [[7]], , , , ]
+    });
+
+    const iceC_Game_Subject_ids = [
+        "::Game::Subject",
+        "::Ice::Object"
+    ];
+
+    Game.Subject = class extends Ice.Object
+    {
+    };
+
+    Game.SubjectPrx = class extends Ice.ObjectPrx
+    {
+    };
+
+    Slice.defineOperations(Game.Subject, Game.SubjectPrx, iceC_Game_Subject_ids, 0,
+    {
+        "attachObserver": [, , , , , [["Game.ObserverPrx"]], , , , ]
     });
     exports.Game = Game;
 }

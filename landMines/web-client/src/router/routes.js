@@ -1,4 +1,4 @@
-import  Game from "../pages/Game.js";
+import  Game from "../pages/GamePage.js";
 import  Home  from "../pages/Home.js";
 import { Router } from "./Router.js";
 

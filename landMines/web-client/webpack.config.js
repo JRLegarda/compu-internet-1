@@ -1,66 +1,47 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import fs from 'fs';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
   mode: 'development',
-  entry: {
-    main: ['./index.js', './index.css']
-  },
+  entry: './index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '',
+    clean: true,
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-      {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      templateContent: () => {
-        // Leer el HTML original
-        const raw = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8');
-        // Reemplazar la etiqueta script y actualizar la ruta del CSS
-        return raw
-          .replace(
-            /<script\s+src=["']index\.js["'][^>]*><\/script>/i,
-            '<script src="bundle.js"></script>'
-          )
-          .replace(
-            /<link\s+rel=["']stylesheet["']\s+href=["']index\.css["'][^>]*>/i,
-            '' // Removemos el link al CSS ya que webpack lo incluirá en el bundle
-          );
-      },
-      inject: false
-    })
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'extLibs', to: 'extLibs' }, // Copia toda la carpeta
+        { from: 'index.html', to: '.' }, // Copia el HTML raíz
+      ],
+    }),
   ],
+  resolve: {
+    fallback: {
+      fs: false, // Ignora el módulo 'fs' (file system)
+      net: false, // A veces también se necesita para Ice/ZeroC
+      tls: false, // A veces también se necesita para Ice/ZeroC
+    },
+  },
   devServer: {
     static: {
-      directory: path.join(__dirname, './'),
+      directory: path.join(__dirname, 'dist'),
     },
     historyApiFallback: true,
-    compress: true,
-    port: 3001,
-    hot: true,
-    open: true,
+    port: 3000,
   },
 };

@@ -10,12 +10,16 @@ public class ServiceIceImpl implements GameServices {
 
     private ServicesImpl servicesImpl;
 
-    public ServiceIceImpl(ServicesImpl service) {
+    private SubjectImpl subject;
+
+    public ServiceIceImpl(ServicesImpl service, SubjectImpl sub) {
         servicesImpl = service;
+        subject = sub;
     }
 
     @Override
     public boolean selectCell(int i, int j, Current current) {
+        subject.notifyObs();
         return servicesImpl.selectCell(i, j);
     }
 
@@ -35,5 +39,11 @@ public class ServiceIceImpl implements GameServices {
 
         return dtos;
     }
+
+    public void resetGame(Current current){
+        servicesImpl.initGame(8, 8, 10);
+    }   
+
+
 
 }

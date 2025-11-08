@@ -1,7 +1,6 @@
 import Cell from './Cell.js';
 
 const Board = (cells, showCell) => {
-  console.log(cells);
 
   const n = cells.length;
   const m = cells[0].length;
